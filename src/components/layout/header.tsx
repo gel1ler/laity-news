@@ -25,8 +25,10 @@ import {
   Search as SearchIcon,
   AccountCircle as AccountIcon
 } from '@mui/icons-material';
+import { useAppThemeContext } from '@/context/appThemeContext';
 
-const Header = ({ darkMode }: { darkMode: boolean}) => {
+const Header = () => {
+  const { mode, toggleTheme } = useAppThemeContext();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -50,13 +52,13 @@ const Header = ({ darkMode }: { darkMode: boolean}) => {
     { name: 'Спорт', path: '/sport' },
   ];
 
+
   return (
     <AppBar
       position="sticky"
-      className="shadow-sm"
       sx={{
-        backgroundColor: theme.palette.mode === 'dark' ? 'background.paper' : 'primary.main',
-        color: 'text.primary',
+        bgcolor: "primary.dark",
+
       }}
     >
       <Toolbar className="container mx-auto">
@@ -73,15 +75,13 @@ const Header = ({ darkMode }: { darkMode: boolean}) => {
               <MenuIcon />
             </IconButton>
           )}
-          
-          <Link href="/" passHref legacyBehavior>
+
+          <Link href="/" passHref>
             <Typography
               variant="h6"
-              component="a"
               sx={{
                 fontWeight: 'bold',
                 textDecoration: 'none',
-                color: 'inherit',
                 '&:hover': { opacity: 0.8 },
               }}
             >
@@ -92,21 +92,22 @@ const Header = ({ darkMode }: { darkMode: boolean}) => {
 
         {/* Навигация для десктопа */}
         {!isMobile && (
-          <Box sx={{ display: 'flex', mx: 2 }}>
+          <Box className='mx-8 flex gap-4'>
             {navItems.map((item) => (
-              <Link key={item.path} href={item.path} passHref legacyBehavior>
-                <Button
-                  color="inherit"
+              <Link key={item.path} href={item.path} passHref>
+                <Typography
                   sx={{
                     mx: 1,
                     fontWeight: 'medium',
+                    color: 'text.primary',
+                    transition: 'color .2s ease-out',
                     '&:hover': {
-                      backgroundColor: theme.palette.mode === 'dark' ? 'action.hover' : 'primary.dark',
+                      color: 'text.secondary'
                     },
                   }}
                 >
                   {item.name}
-                </Button>
+                </Typography>
               </Link>
             ))}
           </Box>
@@ -117,13 +118,13 @@ const Header = ({ darkMode }: { darkMode: boolean}) => {
           <IconButton color="inherit" aria-label="search">
             <SearchIcon />
           </IconButton>
-          
+
           <IconButton color="inherit" aria-label="account">
             <AccountIcon />
           </IconButton>
-          
-          <IconButton color="inherit" onClick={()=>{}} aria-label="toggle theme">
-            {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+
+          <IconButton color="inherit" onClick={toggleTheme} aria-label="toggle theme">
+            {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
           </IconButton>
         </Box>
 
@@ -152,8 +153,8 @@ const Header = ({ darkMode }: { darkMode: boolean}) => {
             <Divider />
             <List>
               {navItems.map((item) => (
-                <Link key={item.path} href={item.path} passHref legacyBehavior>
-                  <ListItem component="a">
+                <Link key={item.path} href={item.path} passHref>
+                  <ListItem>
                     <ListItemText primary={item.name} />
                   </ListItem>
                 </Link>
@@ -164,12 +165,12 @@ const Header = ({ darkMode }: { darkMode: boolean}) => {
               <FormControlLabel
                 control={
                   <Switch
-                    checked={darkMode}
-                    onChange={()=>{}}
+                    checked={!!mode}
+                    onChange={toggleTheme}
                     color="primary"
                   />
                 }
-                label={darkMode ? 'Светлая тема' : 'Тёмная тема'}
+                label={mode === 'light' ? 'Светлая тема' : 'Тёмная тема'}
               />
             </Box>
           </Box>

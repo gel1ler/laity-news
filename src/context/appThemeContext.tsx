@@ -1,5 +1,5 @@
 'use client'
-import { createTheme, CssBaseline, responsiveFontSizes, ThemeProvider } from "@mui/material";
+import { createTheme, CssBaseline, GlobalStyles, responsiveFontSizes, ThemeProvider } from "@mui/material";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { } from '@mui/material/themeCssVarsAugmentation';
 
@@ -11,52 +11,55 @@ type ThemeContextType = {
 const AppThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 
 const AppThemeProvider = (props: any) => {
-    const [mode, setMode] = useState<'light' | 'dark'>('light');
+    const [mode, setMode] = useState<'light' | 'dark'>('dark');
+
+    useEffect(() => {
+        const savedMode = localStorage.getItem('themeMode') as 'light' | 'dark' | null;
+        setMode(savedMode || 'dark');
+    }, []);
+
+    useEffect(() => {
+        if (mode) {
+            localStorage.setItem('themeMode', mode);
+        }
+    }, [mode]);
 
     const theme = useMemo(() => {
         return responsiveFontSizes(createTheme({
-            cssVariables: {
-                colorSchemeSelector: "class",
-                disableCssColorScheme: true
-            },
             palette: {
-                primary: {
-                    main: `rgb(10, 18, 42)`,
-                    contrastText: 'rgb(255, 255, 255)',
-                },
-                secondary: {
-                    main: `rgb(27, 59, 111)`,
-                    contrastText: 'rgb(255, 255, 255)',
-                }
+                mode,
+                ...(mode === 'light'
+                    ? {
+                        primary: {
+                            dark: "#faedcd",
+                            main: "#fefae0",
+                            light: "#e9edc9"
+                        },
+                        text: {
+                            primary: "#303030",
+                        },
+                        background:{
+                            default: "#fafafa"
+                        }
+                    }
+                    : {
+                        primary: {
+                            dark: "#000814",
+                            main: "#001d3d",
+                            light: "#003566"
+                        },
+                        text: {
+                            primary: '#fefae0',
+                            secondary: '#FFC300'
+                        },
+                        background:{
+                            default: "#202020"
+                        }
+                    }),
             },
-            colorSchemes: {
-                light: {
-                    palette: {
-                        primary: {
-                            main: `rgb(10, 18, 42)`,
-                        },
-                        secondary: {
-                            main: `rgb(27, 59, 111)`,
-                        }
-                    }
-                },
-                dark: {
-                    palette: {
-                        primary: {
-                            main: `rgb(10, 18, 42)`,
-                        },
-                        secondary: {
-                            main: `rgb(27, 59, 111)`,
-                        }
-                    }
-                }
-            }
+
         }))
     }, [mode])
-
-    useEffect(() => {
-        document.documentElement.classList.toggle('dark-theme', mode === 'dark');
-    }, [mode]);
 
     const contextValue = useMemo(() => ({
         toggleTheme: () => setMode(prev => prev === 'light' ? 'dark' : 'light'),
@@ -65,6 +68,12 @@ const AppThemeProvider = (props: any) => {
 
     return <AppThemeContext.Provider value={contextValue}>
         <ThemeProvider theme={theme} disableTransitionOnChange>
+            <GlobalStyles styles={{
+                body: {
+                    backgroundColor: theme.palette.background.default,
+                    color: theme.palette.text.primary,
+                },
+            }} />
             <CssBaseline enableColorScheme />
             {props.children}
         </ThemeProvider>
