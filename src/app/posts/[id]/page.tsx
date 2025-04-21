@@ -1,4 +1,4 @@
-import { NewsCard } from "@/components/news/card"
+import { NewsCard } from "@/components/posts/post"
 import { newsArticles } from "@/db/dummyData"
 
 export default async function Page({

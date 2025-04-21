@@ -1,8 +1,8 @@
 import React from 'react'
-import { NewsCard } from './card';
+import { NewsCard } from './post';
 import { newsArticles } from '@/db/dummyData';
 
-const News = () => {
+const Posts = () => {
   return (
     <div className='flex flex-col gap-10'>
       {newsArticles.map(arcticle =>
@@ -12,4 +12,4 @@ const News = () => {
   )
 }
 
-export default News
+export default Posts

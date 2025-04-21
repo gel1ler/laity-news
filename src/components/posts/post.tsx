@@ -33,15 +33,11 @@ export const NewsCard = ({ data, size }: { data: TNewsArticle, size: TSize }) =>
                 overflow: 'visible',
                 display: 'flex',
                 gap: 2,
-                boxShadow: theme.palette.mode === 'dark'
-                    ? '0 8px 32px rgba(255, 82, 82, 0.2)'
-                    : '0 8px 32px rgba(0, 0, 0, 0.1)',
+                boxShadow: `0 0 30px 5px  ${theme.palette.secondary.main}3B`,
                 transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                 '&:hover': {
                     transform: 'translateY(-8px)',
-                    boxShadow: theme.palette.mode === 'dark'
-                        ? '0 12px 40px rgba(255, 82, 82, 0.3)'
-                        : '0 12px 40px rgba(0, 0, 0, 0.15)',
+                    boxShadow: `0 0 30px 5px  ${theme.palette.secondary.main}63`
                 },
             }}
         >
@@ -59,8 +55,8 @@ export const NewsCard = ({ data, size }: { data: TNewsArticle, size: TSize }) =>
                         label={category}
                         size="small"
                         sx={{
-                            backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 82, 82, 0.2)' : 'rgba(213, 0, 0, 0.1)',
-                            color: theme.palette.mode === 'dark' ? '#ff5252' : '#d50000',
+                            bgcolor: 'secondary.main',
+                            color: 'text.secondary',
                             fontWeight: 'bold'
                         }}
                     />
@@ -76,9 +72,7 @@ export const NewsCard = ({ data, size }: { data: TNewsArticle, size: TSize }) =>
                         gutterBottom
                         sx={{
                             fontWeight: 700,
-                            background: theme.palette.mode === 'dark'
-                                ? 'linear-gradient(90deg, #ff5252, #ff8a80)'
-                                : 'linear-gradient(90deg, #d50000, #ff5252)',
+                            background: `linear-gradient(90deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             display: 'inline-block'
@@ -111,13 +105,11 @@ export const NewsCard = ({ data, size }: { data: TNewsArticle, size: TSize }) =>
                             width: 24,
                             height: 24,
                             borderRadius: '50%',
-                            background: theme.palette.mode === 'dark'
-                                ? 'linear-gradient(135deg, #ff5252, #ff8a80)'
-                                : 'linear-gradient(135deg, #d50000, #ff5252)',
+                            background:`linear-gradient(90deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            color: 'white',
+                            color: 'text.secondary',
                             fontSize: '0.7rem',
                             fontWeight: 'bold'
                         }}

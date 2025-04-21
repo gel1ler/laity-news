@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./anims.css";
-import Header from "@/components/layout/header";
+import Header from "@/components/layout/header/header";
 import AppThemeProvider from "@/context/appThemeContext";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
@@ -34,8 +34,8 @@ export default function RootLayout({
         <AppRouterCacheProvider options={{ enableCssLayer: false }}>
           <AppThemeProvider>
             <InitColorSchemeScript attribute="class" />
-            <Header />
-            <main className="min-h-screen m-10 flex flex-col gap-20">
+            {/* <Header /> */}
+            <main className="min-h-screen flex flex-col gap-20">
               {children}
             </main>
             <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">

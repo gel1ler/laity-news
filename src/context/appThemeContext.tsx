@@ -31,9 +31,14 @@ const AppThemeProvider = (props: any) => {
                 ...(mode === 'light'
                     ? {
                         primary: {
-                            dark: "#faedcd",
                             main: "#fefae0",
+                            dark: "#faedcd",
                             light: "#e9edc9"
+                        },
+                        secondary:{
+                            main: '#FFC300',
+                            dark: '#FF9800',
+                            light: '#FFE592'
                         },
                         text: {
                             primary: "#303030",
@@ -44,13 +49,18 @@ const AppThemeProvider = (props: any) => {
                     }
                     : {
                         primary: {
-                            dark: "#000814",
                             main: "#001d3d",
+                            dark: "#000814",
                             light: "#003566"
+                        },
+                        secondary:{
+                            main: '#FFC300',
+                            dark: '#FF9800',
+                            light: '#FFE592'
                         },
                         text: {
                             primary: '#fefae0',
-                            secondary: '#FFC300'
+                            secondary: '#404040'
                         },
                         background:{
                             default: "#202020"

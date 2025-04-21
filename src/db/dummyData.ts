@@ -61,3 +61,11 @@ export const newsArticles: TNewsArticle[] = [
         size: 'small'
     }
 ];
+
+export const navItems = [
+    { name: 'Главная', path: '/' },
+    { name: 'Политика', path: '/politics' },
+    { name: 'Экономика', path: '/economy' },
+    { name: 'Технологии', path: '/tech' },
+    { name: 'Спорт', path: '/sport' },
+  ];
